@@ -1,0 +1,88 @@
+xtype [name: boolean,
+       base: numeric,
+       length: 1,
+       scale: 0,
+       desc: boolean,
+       domain: [0,1]
+      ].
+xtype [name: integer,
+       base: numeric,
+       length: 10,
+       scale: 0,
+       desc: integer,
+       domain: [-2147483648 to 2147483647]
+      ].
+
+
+xtype [name: tpe_float_type,
+       base: numeric,
+       length: 20,
+       scale: 10
+      ].
+xtype [name: 'Country',
+       base: symbolic,
+       domain: ['FRANCE'/1,'GERMANY'/2,'GREECE'/3,'NORTH_KOREA'/4,'POLAND'/5,'UK'/6,'USA'/7],
+       ordered: yes
+      ].
+xtype [name: 'Currency',
+       base: symbolic,
+       domain: ['EUR'/1,'GBP'/2,'KPW'/3,'PLN'/4,'USD'/5],
+       ordered: yes
+      ].
+xattr [name: return_calculatePrice,
+       abbrev: calc1,
+       class: simple,
+       type: tpe_float_type,
+       comm: out
+      ].
+xattr [name: param_0_calculatePrice_basePrice,
+       abbrev: base2,
+       class: simple,
+       type: tpe_float_type,
+       comm: in
+      ].
+xattr [name: param_1_calculatePrice_baseCurrency,
+       abbrev: base3,
+       class: simple,
+       type: 'Currency',
+       comm: in
+      ].
+xattr [name: param_2_calculatePrice_exchangeCurrency,
+       abbrev: exch4,
+       class: simple,
+       type: 'Currency',
+       comm: in
+      ].
+xschm return_table: [param_0_calculatePrice_basePrice,param_1_calculatePrice_baseCurrency,param_2_calculatePrice_exchangeCurrency] ==> [return_calculatePrice].
+xrule return_table/1:
+      [param_0_calculatePrice_basePrice eq 10.0000000000,
+       param_1_calculatePrice_baseCurrency eq 'PLN',
+       param_2_calculatePrice_exchangeCurrency eq 'USD']
+    ==>
+      [return_calculatePrice set 3.0000000000].
+xrule return_table/2:
+      [param_0_calculatePrice_basePrice eq 10.0000000000,
+       param_1_calculatePrice_baseCurrency eq 'KPW',
+       param_2_calculatePrice_exchangeCurrency eq 'PLN']
+    ==>
+      [return_calculatePrice set 0.0400000000].
+xrule return_table/3:
+      [param_0_calculatePrice_basePrice eq 10.0000000000,
+       param_1_calculatePrice_baseCurrency eq 'EUR',
+       param_2_calculatePrice_exchangeCurrency eq 'GBP']
+    ==>
+      [return_calculatePrice set 8.9000000000].
+xrule return_table/4:
+      [param_0_calculatePrice_basePrice eq 10.0000000000,
+       param_1_calculatePrice_baseCurrency eq 'GBP',
+       param_2_calculatePrice_exchangeCurrency eq 'KPW']
+    ==>
+      [return_calculatePrice set 12439.2000000000].
+xrule return_table/5:
+      [param_0_calculatePrice_basePrice eq 10.0000000000,
+       param_1_calculatePrice_baseCurrency eq 'USD',
+       param_2_calculatePrice_exchangeCurrency eq 'EUR']
+    ==>
+      [return_calculatePrice set 8.2000000000].
+
+ 

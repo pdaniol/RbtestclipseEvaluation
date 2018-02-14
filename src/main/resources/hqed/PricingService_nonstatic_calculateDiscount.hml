@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE hml SYSTEM "hml.dtd">
+<hml version="2.0">
+    <types>
+        <type base="symbolic" id="tpe_default" name="tpe_default_type"/>
+        <type base="numeric" id="tpe_float" length="20" name="tpe_float_type" scale="10"/>
+        <type base="numeric" id="tpe_int" name="tpe_int_type">
+            <domain>
+                <value from="-2147483648" to="2147483647"/>
+            </domain>
+        </type>
+        <type base="symbolic" id="tpe_SaleStatus" name="SaleStatus">
+            <domain>
+                <value is="GOLD_SALE"/>
+                <value is="SILVER_SALE"/>
+                <value is="REGULAR_SALE"/>
+                <value is="MONDAY_SALE"/>
+                <value is="NONE"/>
+            </domain>
+        </type>
+        <type base="symbolic" id="tpe_SellerMood" name="SellerMood">
+            <domain>
+                <value is="GOOD"/>
+                <value is="NORMAL"/>
+            </domain>
+        </type>
+        <type base="symbolic" id="tpe_CustomerStatus" name="CustomerStatus">
+            <domain>
+                <value is="GOLD"/>
+                <value is="SILVER"/>
+                <value is="NONE"/>
+            </domain>
+        </type>
+    </types>
+    <attributes>
+        <attr abbrev="sale1" class="simple" comm="io" id="attr_saleStatus" name="nonstatic_saleStatus" type="tpe_default"/>
+        <attr abbrev="calc2" class="simple" comm="out" id="attr_return_calculateDiscount" name="return_calculateDiscount" type="tpe_float"/>
+        <attr abbrev="loya3" class="simple" comm="in" id="attr_param_calculateDiscount_loyaltyPoints" name="param_0_calculateDiscount_loyaltyPoints" type="tpe_int"/>
+        <attr abbrev="sell4" class="simple" comm="in" id="attr_param_calculateDiscount_sellerMood" name="param_1_calculateDiscount_sellerMood" type="tpe_SellerMood"/>
+    </attributes>
+</hml>

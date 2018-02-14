@@ -64,9 +64,9 @@ public class PricingService {
   
 	@HmlReturnAttribute(hml_type = "tpe_CustomerStatus")
     public CustomerStatus checkStatus(int loyaltyPoints){
-        if(loyaltyPoints > 10000){
+        if(loyaltyPoints > 1000){
             return CustomerStatus.GOLD;
-        } else if (loyaltyPoints > 5000){
+        } else if (loyaltyPoints > 500){
             return CustomerStatus.SILVER;
         } else {
             return CustomerStatus.NONE;
@@ -78,7 +78,8 @@ public class PricingService {
 	})
     public float calculateDiscount(int loyaltyPoints, SellerMood sellerMood){
         CustomerStatus customerStatus = checkStatus(loyaltyPoints);
-        float discount = MathUtils.pickGreater(saleDiscountMap.get(saleStatus), customerDiscountMap.get(customerStatus));
+        float discount = MathUtils.pickGreater(saleDiscountMap.get(saleStatus), 
+        		customerDiscountMap.get(customerStatus));
 
         if(SellerMood.GOOD.equals(sellerMood)){
             discount += 0.05;

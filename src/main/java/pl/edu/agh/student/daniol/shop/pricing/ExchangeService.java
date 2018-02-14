@@ -3,6 +3,7 @@ package pl.edu.agh.student.daniol.shop.pricing;
 import pl.edu.agh.student.daniol.shop.profile.Country;
 import pl.edu.agh.student.daniol.shop.profile.Currency;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -102,7 +103,8 @@ public class ExchangeService {
 
 	})
     public static float calculatePrice(float basePrice, Currency baseCurrency, Currency exchangeCurrency){
-        return basePrice * exchangeMap.get(baseCurrency).get(exchangeCurrency);
+        return BigDecimal.valueOf(basePrice).multiply(BigDecimal.valueOf(exchangeMap.get(baseCurrency).get(exchangeCurrency)))
+        		.setScale(2, BigDecimal.ROUND_HALF_EVEN).floatValue();
     }
 
 

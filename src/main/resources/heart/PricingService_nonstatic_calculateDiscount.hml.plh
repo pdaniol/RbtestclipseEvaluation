@@ -1,0 +1,118 @@
+xtype [name: boolean,
+       base: numeric,
+       length: 1,
+       scale: 0,
+       desc: boolean,
+       domain: [0,1]
+      ].
+xtype [name: integer,
+       base: numeric,
+       length: 10,
+       scale: 0,
+       desc: integer,
+       domain: [-2147483648 to 2147483647]
+      ].
+
+
+xtype [name: tpe_default_type,
+       base: symbolic
+      ].
+xtype [name: tpe_float_type,
+       base: numeric,
+       length: 20,
+       scale: 10
+      ].
+xtype [name: tpe_int_type,
+       base: numeric,
+       domain: [-2147483648 to 2147483647]
+      ].
+xtype [name: 'SaleStatus',
+       base: symbolic,
+       domain: ['GOLD_SALE'/1,'SILVER_SALE'/2,'REGULAR_SALE'/3,'MONDAY_SALE'/4,'NONE'/5],
+       ordered: yes
+      ].
+xtype [name: 'SellerMood',
+       base: symbolic,
+       domain: ['GOOD'/1,'NORMAL'/2],
+       ordered: yes
+      ].
+xtype [name: 'CustomerStatus',
+       base: symbolic,
+       domain: ['GOLD'/1,'SILVER'/2,'NONE'/3],
+       ordered: yes
+      ].
+xattr [name: nonstatic_saleStatus,
+       abbrev: sale1,
+       class: simple,
+       type: 'SaleStatus',
+       comm: inter
+      ].
+xattr [name: param_0_calculateDiscount_loyaltyPoints,
+       abbrev: loya3,
+       class: simple,
+       type: tpe_int_type,
+       comm: in
+      ].
+xattr [name: param_1_calculateDiscount_sellerMood,
+       abbrev: sell4,
+       class: simple,
+       type: 'SellerMood',
+       comm: in
+      ].
+xattr [name: return_calculateDiscount,
+       abbrev: calc2,
+       class: simple,
+       type: tpe_float_type,
+       comm: out
+      ].
+xschm return_table: [nonstatic_saleStatus,param_1_calculateDiscount_sellerMood,param_0_calculateDiscount_loyaltyPoints] ==> [return_calculateDiscount].
+xrule return_table/1:
+      [nonstatic_saleStatus eq 'GOLD_SALE',
+       param_1_calculateDiscount_sellerMood eq 'GOOD',
+       param_0_calculateDiscount_loyaltyPoints eq 700.000]
+    ==>
+      [return_calculateDiscount set 0.5500000000].
+xrule return_table/2:
+      [nonstatic_saleStatus eq 'MONDAY_SALE',
+       param_1_calculateDiscount_sellerMood eq 'NORMAL',
+       param_0_calculateDiscount_loyaltyPoints eq 1200.000]
+    ==>
+      [return_calculateDiscount set 0.2000000000].
+xrule return_table/3:
+      [nonstatic_saleStatus eq 'REGULAR_SALE',
+       param_1_calculateDiscount_sellerMood eq 'NORMAL',
+       param_0_calculateDiscount_loyaltyPoints eq 20.000]
+    ==>
+      [return_calculateDiscount set 0.2000000000].
+xrule return_table/4:
+      [nonstatic_saleStatus eq 'MONDAY_SALE',
+       param_1_calculateDiscount_sellerMood eq 'GOOD',
+       param_0_calculateDiscount_loyaltyPoints eq 20.000]
+    ==>
+      [return_calculateDiscount set 0.1000000000].
+xrule return_table/5:
+      [nonstatic_saleStatus eq 'NONE',
+       param_1_calculateDiscount_sellerMood eq 'NORMAL',
+       param_0_calculateDiscount_loyaltyPoints eq 1200.000]
+    ==>
+      [return_calculateDiscount set 0.2000000000].
+xrule return_table/6:
+      [nonstatic_saleStatus eq 'NONE',
+       param_1_calculateDiscount_sellerMood eq 'NORMAL',
+       param_0_calculateDiscount_loyaltyPoints eq 0.000]
+    ==>
+      [return_calculateDiscount set 0.0000000000].
+xrule return_table/7:
+      [nonstatic_saleStatus eq 'REGULAR_SALE',
+       param_1_calculateDiscount_sellerMood eq 'GOOD',
+       param_0_calculateDiscount_loyaltyPoints eq 0.000]
+    ==>
+      [return_calculateDiscount set 0.2500000000].
+xrule return_table/8:
+      [nonstatic_saleStatus eq 'SILVER_SALE',
+       param_1_calculateDiscount_sellerMood eq 'NORMAL',
+       param_0_calculateDiscount_loyaltyPoints eq 1200.000]
+    ==>
+      [return_calculateDiscount set 0.3500000000].
+
+ 

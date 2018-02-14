@@ -15,7 +15,6 @@ import static pl.edu.agh.student.daniol.shop.profile.Currency.USD;
 import org.junit.Test;
 
 import pl.edu.agh.student.daniol.shop.profile.Currency;
-import pl.edu.agh.student.daniol.shop.profile.Country;
 
 public class ExchangeService_static_findCurrencyTest{
 	@Test
