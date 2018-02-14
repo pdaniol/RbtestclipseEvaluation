@@ -1,0 +1,97 @@
+xtype [name: boolean,
+       base: numeric,
+       length: 1,
+       scale: 0,
+       desc: boolean,
+       domain: [0,1]
+      ].
+xtype [name: integer,
+       base: numeric,
+       length: 10,
+       scale: 0,
+       desc: integer,
+       domain: [-2147483648 to 2147483647]
+      ].
+
+
+xtype [name: tpe_default_type,
+       base: symbolic
+      ].
+xtype [name: tpe_double_type,
+       base: numeric,
+       length: 2045,
+       scale: 1022
+      ].
+xtype [name: tpe_boolean_type,
+       base: symbolic,
+       domain: [false/1,true/2],
+       ordered: yes
+      ].
+xtype [name: 'Country',
+       base: symbolic,
+       domain: ['FRANCE'/1,'GERMANY'/2,'GREECE'/3,'NORTH_KOREA'/4,'POLAND'/5,'UK'/6,'USA'/7],
+       ordered: yes
+      ].
+xtype [name: 'Currency',
+       base: symbolic,
+       domain: ['EUR'/1,'GBP'/2,'KPW'/3,'PLN'/4,'USD'/5],
+       ordered: yes
+      ].
+xtype [name: 'IPhoneModel',
+       base: symbolic,
+       domain: ['IPhoneX'/1,'IPhone8'/2,'IPhone7'/3,'IPhone6'/4,'IPhoneSE'/5,'IPhone5'/6],
+       ordered: yes
+      ].
+xattr [name: nonstatic_basePrice,
+       abbrev: base3,
+       class: simple,
+       type: tpe_double_type,
+       comm: inter
+      ].
+xattr [name: nonstatic_currency,
+       abbrev: curr1,
+       class: simple,
+       type: tpe_default_type,
+       comm: inter
+      ].
+xattr [name: nonstatic_iPhoneModel,
+       abbrev: iPho2,
+       class: simple,
+       type: 'IPhoneModel',
+       comm: inter
+      ].
+xattr [name: param_0_isAvailable_country,
+       abbrev: coun5,
+       class: simple,
+       type: 'Country',
+       comm: in
+      ].
+xattr [name: return_isAvailable,
+       abbrev: isAv4,
+       class: simple,
+       type: tpe_boolean_type,
+       comm: out
+      ].
+xschm return_table: [nonstatic_iPhoneModel,param_0_isAvailable_country] ==> [return_isAvailable].
+xrule return_table/1:
+      [nonstatic_iPhoneModel eq 'IPhoneX',
+       param_0_isAvailable_country eq 'USA']
+    ==>
+      [return_isAvailable set true].
+xrule return_table/2:
+      [nonstatic_iPhoneModel eq 'IPhoneX',
+       param_0_isAvailable_country in ['FRANCE','GERMANY','GREECE','NORTH_KOREA','POLAND','UK']]
+    ==>
+      [return_isAvailable set false].
+xrule return_table/3:
+      [nonstatic_iPhoneModel in ['IPhone8','IPhone7','IPhone6','IPhoneSE','IPhone5'],
+       param_0_isAvailable_country in ['FRANCE','GERMANY','GREECE','POLAND','UK']]
+    ==>
+      [return_isAvailable set true].
+xrule return_table/4:
+      [nonstatic_iPhoneModel in ['IPhone8','IPhone7','IPhone6','IPhoneSE','IPhone5'],
+       param_0_isAvailable_country eq 'NORTH_KOREA']
+    ==>
+      [return_isAvailable set false].
+
+ 

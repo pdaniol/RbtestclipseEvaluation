@@ -1,0 +1,83 @@
+xtype [name: boolean,
+       base: numeric,
+       length: 1,
+       scale: 0,
+       desc: boolean,
+       domain: [0,1]
+      ].
+xtype [name: integer,
+       base: numeric,
+       length: 10,
+       scale: 0,
+       desc: integer,
+       domain: [-2147483648 to 2147483647]
+      ].
+
+
+xtype [name: tpe_boolean_type,
+       base: symbolic,
+       domain: [false/1,true/2],
+       ordered: yes
+      ].
+xtype [name: tpe_float_type,
+       base: numeric,
+       length: 20,
+       scale: 10
+      ].
+xattr [name: nonstatic_airConditioner,
+       abbrev: airC1,
+       class: simple,
+       type: tpe_boolean_type,
+       comm: in
+      ].
+xattr [name: nonstatic_dailyPrice,
+       abbrev: dail2,
+       class: simple,
+       type: tpe_float_type,
+       comm: out
+      ].
+xattr [name: nonstatic_fullInsurance,
+       abbrev: full3,
+       class: simple,
+       type: tpe_boolean_type,
+       comm: in
+      ].
+xattr [name: nonstatic_baseDailyPrice,
+       abbrev: base4,
+       class: simple,
+       type: tpe_float_type,
+       comm: inter
+      ].
+xattr [name: return_calculateDailyPrice,
+       abbrev: calc5,
+       class: simple,
+       type: tpe_float_type,
+       comm: out
+      ].
+xschm return_table: [nonstatic_airConditioner,nonstatic_fullInsurance,nonstatic_baseDailyPrice] ==> [return_calculateDailyPrice].
+xrule return_table/1:
+      [nonstatic_airConditioner eq true,
+       nonstatic_fullInsurance eq true,
+       nonstatic_baseDailyPrice eq 100.0000000000]
+    ==>
+      [return_calculateDailyPrice set 140.0000000000].
+xrule return_table/2:
+      [nonstatic_airConditioner eq false,
+       nonstatic_fullInsurance eq true,
+       nonstatic_baseDailyPrice eq 100.0000000000]
+    ==>
+      [return_calculateDailyPrice set 120.0000000000].
+xrule return_table/3:
+      [nonstatic_airConditioner eq true,
+       nonstatic_fullInsurance eq false,
+       nonstatic_baseDailyPrice eq 100.0000000000]
+    ==>
+      [return_calculateDailyPrice set 120.0000000000].
+xrule return_table/4:
+      [nonstatic_airConditioner eq false,
+       nonstatic_fullInsurance eq false,
+       nonstatic_baseDailyPrice eq 100.0000000000]
+    ==>
+      [return_calculateDailyPrice set 100.0000000000].
+
+ 

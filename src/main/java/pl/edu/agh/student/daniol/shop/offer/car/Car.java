@@ -1,5 +1,7 @@
 package pl.edu.agh.student.daniol.shop.offer.car;
 
+import java.math.BigDecimal;
+
 public class Car {
     private float baseDailyPrice;
     private float dailyPrice;
@@ -19,9 +21,15 @@ public class Car {
 
     public float calculateDailyPrice() {
         if(fullInsurance && airConditioner){
-            return this.baseDailyPrice * 1.40f;
+            return BigDecimal.valueOf(this.baseDailyPrice)
+            		.multiply(BigDecimal.valueOf(1.40))
+            		.setScale(2, BigDecimal.ROUND_HALF_EVEN)
+            		.floatValue();
         } else if(fullInsurance || airConditioner){
-            return this.baseDailyPrice * 1.20f;
+            return BigDecimal.valueOf(this.baseDailyPrice)
+            		.multiply(BigDecimal.valueOf(1.20))
+            		.setScale(2, BigDecimal.ROUND_HALF_EVEN)
+            		.floatValue();
         } else {
             return this.baseDailyPrice;
         }

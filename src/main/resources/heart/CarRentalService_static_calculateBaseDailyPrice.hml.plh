@@ -1,0 +1,62 @@
+xtype [name: boolean,
+       base: numeric,
+       length: 1,
+       scale: 0,
+       desc: boolean,
+       domain: [0,1]
+      ].
+xtype [name: integer,
+       base: numeric,
+       length: 10,
+       scale: 0,
+       desc: integer,
+       domain: [-2147483648 to 2147483647]
+      ].
+
+
+xtype [name: tpe_float_type,
+       base: numeric,
+       length: 20,
+       scale: 10
+      ].
+xtype [name: 'Brand',
+       base: symbolic,
+       domain: ['AUDI'/1,'BMW'/2,'HONDA'/3,'HYUNDAI'/4,'LAND_ROVER'/5,'TESLA'/6,'TOYOTA'/7,'VOLKSWAGEN'/8],
+       ordered: yes
+      ].
+xtype [name: 'Currency',
+       base: symbolic,
+       domain: ['EUR'/1,'GBP'/2,'KPW'/3,'PLN'/4,'USD'/5],
+       ordered: yes
+      ].
+xattr [name: return_calculateBaseDailyPrice,
+       abbrev: calc1,
+       class: simple,
+       type: tpe_float_type,
+       comm: out
+      ].
+xattr [name: param_0_calculateBaseDailyPrice_brand,
+       abbrev: bran2,
+       class: simple,
+       type: 'Brand',
+       comm: in
+      ].
+xschm return_table: [param_0_calculateBaseDailyPrice_brand] ==> [return_calculateBaseDailyPrice].
+xrule return_table/1:
+      [param_0_calculateBaseDailyPrice_brand eq 'TESLA']
+    ==>
+      [return_calculateBaseDailyPrice set 300.0000000000].
+xrule return_table/2:
+      [param_0_calculateBaseDailyPrice_brand in ['BMW','LAND_ROVER']]
+    ==>
+      [return_calculateBaseDailyPrice set 100.0000000000].
+xrule return_table/3:
+      [param_0_calculateBaseDailyPrice_brand eq 'TOYOTA']
+    ==>
+      [return_calculateBaseDailyPrice set 80.0000000000].
+xrule return_table/4:
+      [param_0_calculateBaseDailyPrice_brand in ['AUDI','HONDA','HYUNDAI','VOLKSWAGEN']]
+    ==>
+      [return_calculateBaseDailyPrice set 50.0000000000].
+
+ 

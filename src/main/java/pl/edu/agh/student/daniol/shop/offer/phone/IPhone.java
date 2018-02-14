@@ -6,6 +6,7 @@ import pl.edu.agh.student.daniol.shop.profile.Currency;
 import static pl.edu.agh.student.daniol.shop.offer.phone.IPhoneModel.*;
 import static pl.edu.agh.student.daniol.shop.profile.Country.*;
 
+import hadesclipse.hml.template.annotation.HmlAttribute;
 import hadesclipse.hml.template.annotation.HmlParamAttribute;
 import hadesclipse.hml.template.annotation.HmlParamAttributes;
 import hadesclipse.hml.template.annotation.HmlType;
@@ -51,6 +52,8 @@ public class IPhone {
         this.currency = currency;
         this.iPhoneModel = iPhoneModel;
     }
+    
+    public IPhone() {}
 
     public double getBasePrice() {
         return basePrice;
@@ -68,11 +71,12 @@ public class IPhone {
         this.currency = currency;
     }
     
-
+    @HmlAttribute(hml_type = "tpe_IPhoneModel")
     public IPhoneModel getiPhoneModel() {
         return iPhoneModel;
     }
 
+    @HmlAttribute(hml_type = "tpe_IPhoneModel")
     public void setiPhoneModel(IPhoneModel iPhoneModel) {
         this.iPhoneModel = iPhoneModel;
     }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE hml SYSTEM "hml.dtd">
+<hml version="2.0">
+    <types>
+        <type base="symbolic" id="tpe_default" name="tpe_default_type"/>
+        <type base="numeric" id="tpe_double" length="2045" name="tpe_double_type" scale="1022"/>
+        <type base="symbolic" id="tpe_boolean" name="tpe_boolean_type">
+            <domain>
+                <value is="false"/>
+                <value is="true"/>
+            </domain>
+        </type>
+        <type base="symbolic" id="tpe_Country" name="Country">
+            <domain>
+                <value is="FRANCE"/>
+                <value is="GERMANY"/>
+                <value is="GREECE"/>
+                <value is="NORTH_KOREA"/>
+                <value is="POLAND"/>
+                <value is="UK"/>
+                <value is="USA"/>
+            </domain>
+        </type>
+        <type base="symbolic" id="tpe_Currency" name="Currency">
+            <domain>
+                <value is="EUR"/>
+                <value is="GBP"/>
+                <value is="KPW"/>
+                <value is="PLN"/>
+                <value is="USD"/>
+            </domain>
+        </type>
+        <type base="symbolic" id="tpe_IPhoneModel" name="IPhoneModel">
+            <domain>
+                <value is="IPhoneX"/>
+                <value is="IPhone8"/>
+                <value is="IPhone7"/>
+                <value is="IPhone6"/>
+                <value is="IPhoneSE"/>
+                <value is="IPhone5"/>
+            </domain>
+        </type>
+    </types>
+    <attributes>
+        <attr abbrev="curr1" class="simple" comm="io" id="attr_currency" name="nonstatic_currency" type="tpe_default"/>
+        <attr abbrev="iPho2" class="simple" comm="io" id="attr_iPhoneModel" name="nonstatic_iPhoneModel" type="tpe_IPhoneModel"/>
+        <attr abbrev="base3" class="simple" comm="io" id="attr_basePrice" name="nonstatic_basePrice" type="tpe_double"/>
+        <attr abbrev="isAv4" class="simple" comm="out" id="attr_return_isAvailable" name="return_isAvailable" type="tpe_boolean"/>
+        <attr abbrev="coun5" class="simple" comm="in" id="attr_param_isAvailable_country" name="param_0_isAvailable_country" type="tpe_Country"/>
+    </attributes>
+</hml>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE hml SYSTEM "hml.dtd">
+<hml version="2.0">
+    <types>
+        <type base="symbolic" id="tpe_boolean" name="tpe_boolean_type">
+            <domain>
+                <value is="false"/>
+                <value is="true"/>
+            </domain>
+        </type>
+        <type base="numeric" id="tpe_float" length="20" name="tpe_float_type" scale="10"/>
+    </types>
+    <attributes>
+        <attr abbrev="airC1" class="simple" comm="in" id="attr_airConditioner" name="nonstatic_airConditioner" type="tpe_boolean"/>
+        <attr abbrev="dail2" class="simple" comm="out" id="attr_dailyPrice" name="nonstatic_dailyPrice" type="tpe_float"/>
+        <attr abbrev="full3" class="simple" comm="in" id="attr_fullInsurance" name="nonstatic_fullInsurance" type="tpe_boolean"/>
+        <attr abbrev="base4" class="simple" comm="io" id="attr_baseDailyPrice" name="nonstatic_baseDailyPrice" type="tpe_float"/>
+        <attr abbrev="calc5" class="simple" comm="out" id="attr_return_calculateDailyPrice" name="return_calculateDailyPrice" type="tpe_float"/>
+    </attributes>
+</hml>

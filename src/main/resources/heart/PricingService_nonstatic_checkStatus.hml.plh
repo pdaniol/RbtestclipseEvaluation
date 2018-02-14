@@ -1,0 +1,75 @@
+xtype [name: boolean,
+       base: numeric,
+       length: 1,
+       scale: 0,
+       desc: boolean,
+       domain: [0,1]
+      ].
+xtype [name: integer,
+       base: numeric,
+       length: 10,
+       scale: 0,
+       desc: integer,
+       domain: [-2147483648 to 2147483647]
+      ].
+
+
+xtype [name: tpe_default_type,
+       base: symbolic
+      ].
+xtype [name: tpe_int_type,
+       base: numeric,
+       domain: [-2147483648 to 2147483647]
+      ].
+xtype [name: 'SaleStatus',
+       base: symbolic,
+       domain: ['GOLD_SALE'/1,'SILVER_SALE'/2,'REGULAR_SALE'/3,'MONDAY_SALE'/4,'NONE'/5],
+       ordered: yes
+      ].
+xtype [name: 'SellerMood',
+       base: symbolic,
+       domain: ['GOOD'/1,'NORMAL'/2],
+       ordered: yes
+      ].
+xtype [name: 'CustomerStatus',
+       base: symbolic,
+       domain: ['GOLD'/1,'SILVER'/2,'NONE'/3],
+       ordered: yes
+      ].
+xattr [name: nonstatic_saleStatus,
+       abbrev: sale1,
+       class: simple,
+       type: 'SaleStatus',
+       comm: inter
+      ].
+xattr [name: return_checkStatus,
+       abbrev: chec2,
+       class: simple,
+       type: 'CustomerStatus',
+       comm: out
+      ].
+xattr [name: param_0_checkStatus_loyaltyPoints,
+       abbrev: loya3,
+       class: simple,
+       type: tpe_int_type,
+       comm: in
+      ].
+xschm return_table: [param_0_checkStatus_loyaltyPoints] ==> [return_checkStatus].
+xrule return_table/1:
+      [param_0_checkStatus_loyaltyPoints in [0 to 500]]
+    ==>
+      [return_checkStatus set 'NONE'].
+xrule return_table/2:
+      [param_0_checkStatus_loyaltyPoints in [501 to 1000]]
+    ==>
+      [return_checkStatus set 'SILVER'].
+xrule return_table/3:
+      [param_0_checkStatus_loyaltyPoints gt 1000]
+    ==>
+      [return_checkStatus set 'GOLD'].
+xrule return_table/4:
+      [param_0_checkStatus_loyaltyPoints lt 0]
+    ==>
+      [return_checkStatus set null].
+
+ 

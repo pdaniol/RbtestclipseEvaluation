@@ -5,6 +5,7 @@ import pl.edu.agh.student.daniol.shop.utils.MathUtils;
 import java.util.HashMap;
 import java.util.Map;
 
+import hadesclipse.hml.template.annotation.HmlAttribute;
 import hadesclipse.hml.template.annotation.HmlParamAttribute;
 import hadesclipse.hml.template.annotation.HmlParamAttributes;
 import hadesclipse.hml.template.annotation.HmlReturnAttribute;
@@ -53,10 +54,11 @@ public class PricingService {
     }
 
 
+    @HmlAttribute(hml_type = "tpe_SaleStatus")
     public SaleStatus getSaleStatus() {
         return saleStatus;
     }
-
+    @HmlAttribute(hml_type = "tpe_SaleStatus")
     public void setSaleStatus(SaleStatus saleStatus) {
         this.saleStatus = saleStatus;
     }
@@ -64,6 +66,11 @@ public class PricingService {
   
 	@HmlReturnAttribute(hml_type = "tpe_CustomerStatus")
     public CustomerStatus checkStatus(int loyaltyPoints){
+		
+		if(loyaltyPoints<0) {
+			return null;
+		}
+		
         if(loyaltyPoints > 1000){
             return CustomerStatus.GOLD;
         } else if (loyaltyPoints > 500){

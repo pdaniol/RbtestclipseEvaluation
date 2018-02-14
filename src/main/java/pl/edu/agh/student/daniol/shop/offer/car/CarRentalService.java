@@ -45,10 +45,10 @@ public class CarRentalService {
         carPrices.put(Brand.TOYOTA, 80.0f);
         carPrices.put(Brand.HONDA, 50.0f);
         carPrices.put(Brand.HYUNDAI, 50.0f);
-        carPrices.put(Brand.VOLKSWAGEN, 40.0f);
+        carPrices.put(Brand.VOLKSWAGEN, 50.0f);
     }
 
-    public static float calculateRentalPrice(int numOfDays, int basePrice) {
+    public static float calculateRentalPrice(int numOfDays, float basePrice) {
         float price = numOfDays * basePrice;
         if (numOfDays < 4) {
             price += price * 0.2f;
@@ -60,7 +60,7 @@ public class CarRentalService {
 
     }
 
-    public static float addAgeCorrection(int basePrice, int age) {
+    public static float addAgeCorrection(float basePrice, int age) {
         if (age < 30 || age > 65) {
             return basePrice + basePrice * 0.3f;
         }
@@ -70,7 +70,7 @@ public class CarRentalService {
 
     @HmlParamAttributes(attributes={@HmlParamAttribute(name="brand",hml_type="tpe_Brand")
 	})
-    public static float calculateBaseDailyPriceBasedOnBrand(Brand brand){
+    public static float calculateBaseDailyPrice(Brand brand){
       return carPrices.get(brand);
     }
 }

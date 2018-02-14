@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE hml SYSTEM "hml.dtd">
+<hml version="2.0">
+    <types>
+        <type base="numeric" id="tpe_float" length="20" name="tpe_float_type" scale="10"/>
+        <type base="symbolic" id="tpe_Brand" name="Brand">
+            <domain>
+                <value is="AUDI"/>
+                <value is="BMW"/>
+                <value is="HONDA"/>
+                <value is="HYUNDAI"/>
+                <value is="LAND_ROVER"/>
+                <value is="TESLA"/>
+                <value is="TOYOTA"/>
+                <value is="VOLKSWAGEN"/>
+            </domain>
+        </type>
+        <type base="symbolic" id="tpe_Currency" name="Currency">
+            <domain>
+                <value is="EUR"/>
+                <value is="GBP"/>
+                <value is="KPW"/>
+                <value is="PLN"/>
+                <value is="USD"/>
+            </domain>
+        </type>
+    </types>
+    <attributes>
+        <attr abbrev="calc1" class="simple" comm="out" id="attr_return_calculateBaseDailyPrice" name="return_calculateBaseDailyPrice" type="tpe_float"/>
+        <attr abbrev="bran2" class="simple" comm="in" id="attr_param_calculateBaseDailyPrice_brand" name="param_0_calculateBaseDailyPrice_brand" type="tpe_Brand"/>
+    </attributes>
+</hml>

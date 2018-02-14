@@ -2,8 +2,6 @@ package pl.edu.agh.student.daniol.shop.pricing;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import pl.edu.agh.student.daniol.shop.utils.ValidationUtils;
-
 import static pl.edu.agh.student.daniol.shop.profile.Currency.EUR;
 import static pl.edu.agh.student.daniol.shop.profile.Currency.GBP;
 import static pl.edu.agh.student.daniol.shop.profile.Currency.KPW;

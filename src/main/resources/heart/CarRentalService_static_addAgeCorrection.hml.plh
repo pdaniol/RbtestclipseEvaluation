@@ -1,0 +1,71 @@
+xtype [name: boolean,
+       base: numeric,
+       length: 1,
+       scale: 0,
+       desc: boolean,
+       domain: [0,1]
+      ].
+xtype [name: integer,
+       base: numeric,
+       length: 10,
+       scale: 0,
+       desc: integer,
+       domain: [-2147483648 to 2147483647]
+      ].
+
+
+xtype [name: tpe_float_type,
+       base: numeric,
+       length: 20,
+       scale: 10
+      ].
+xtype [name: tpe_int_type,
+       base: numeric,
+       domain: [-2147483648 to 2147483647]
+      ].
+xtype [name: 'Brand',
+       base: symbolic,
+       domain: ['AUDI'/1,'BMW'/2,'HONDA'/3,'HYUNDAI'/4,'LAND_ROVER'/5,'TESLA'/6,'TOYOTA'/7,'VOLKSWAGEN'/8],
+       ordered: yes
+      ].
+xtype [name: 'Currency',
+       base: symbolic,
+       domain: ['EUR'/1,'GBP'/2,'KPW'/3,'PLN'/4,'USD'/5],
+       ordered: yes
+      ].
+xattr [name: return_addAgeCorrection,
+       abbrev: addA1,
+       class: simple,
+       type: tpe_float_type,
+       comm: out
+      ].
+xattr [name: param_0_addAgeCorrection_basePrice,
+       abbrev: base2,
+       class: simple,
+       type: tpe_float_type,
+       comm: in
+      ].
+xattr [name: param_1_addAgeCorrection_age,
+       abbrev: age_3,
+       class: simple,
+       type: tpe_int_type,
+       comm: in
+      ].
+xschm return_table: [param_0_addAgeCorrection_basePrice,param_1_addAgeCorrection_age] ==> [return_addAgeCorrection].
+xrule return_table/1:
+      [param_0_addAgeCorrection_basePrice eq 100.000,
+       param_1_addAgeCorrection_age eq 29]
+    ==>
+      [return_addAgeCorrection set 130.0000000000].
+xrule return_table/2:
+      [param_0_addAgeCorrection_basePrice eq 100.000,
+       param_1_addAgeCorrection_age in [30 to 65]]
+    ==>
+      [return_addAgeCorrection set 100.0000000000].
+xrule return_table/3:
+      [param_0_addAgeCorrection_basePrice eq 100.000,
+       param_1_addAgeCorrection_age eq 70]
+    ==>
+      [return_addAgeCorrection set 130.0000000000].
+
+ 

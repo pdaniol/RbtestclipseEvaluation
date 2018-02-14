@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE hml SYSTEM "hml.dtd">
+<hml version="2.0">
+    <types>
+        <type base="numeric" id="tpe_float" length="20" name="tpe_float_type" scale="10"/>
+        <type base="numeric" id="tpe_int" name="tpe_int_type">
+            <domain>
+                <value from="-2147483648" to="2147483647"/>
+            </domain>
+        </type>
+        <type base="symbolic" id="tpe_Brand" name="Brand">
+            <domain>
+                <value is="AUDI"/>
+                <value is="BMW"/>
+                <value is="HONDA"/>
+                <value is="HYUNDAI"/>
+                <value is="LAND_ROVER"/>
+                <value is="TESLA"/>
+                <value is="TOYOTA"/>
+                <value is="VOLKSWAGEN"/>
+            </domain>
+        </type>
+        <type base="symbolic" id="tpe_Currency" name="Currency">
+            <domain>
+                <value is="EUR"/>
+                <value is="GBP"/>
+                <value is="KPW"/>
+                <value is="PLN"/>
+                <value is="USD"/>
+            </domain>
+        </type>
+    </types>
+    <attributes>
+        <attr abbrev="addA1" class="simple" comm="out" id="attr_return_addAgeCorrection" name="return_addAgeCorrection" type="tpe_float"/>
+        <attr abbrev="base2" class="simple" comm="in" id="attr_param_addAgeCorrection_basePrice" name="param_0_addAgeCorrection_basePrice" type="tpe_float"/>
+        <attr abbrev="age_3" class="simple" comm="in" id="attr_param_addAgeCorrection_age" name="param_1_addAgeCorrection_age" type="tpe_int"/>
+    </attributes>
+</hml>
