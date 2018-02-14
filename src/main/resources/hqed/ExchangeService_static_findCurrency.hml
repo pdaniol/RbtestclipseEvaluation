@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE hml SYSTEM "hml.dtd">
+<hml version="2.0">
+    <types>
+        <type base="symbolic" id="tpe_Country" name="Country">
+            <domain>
+                <value is="FRANCE"/>
+                <value is="GERMANY"/>
+                <value is="GREECE"/>
+                <value is="NORTH_KOREA"/>
+                <value is="POLAND"/>
+                <value is="UK"/>
+                <value is="USA"/>
+            </domain>
+        </type>
+        <type base="symbolic" id="tpe_Currency" name="Currency">
+            <domain>
+                <value is="EUR"/>
+                <value is="GBP"/>
+                <value is="KPW"/>
+                <value is="PLN"/>
+                <value is="USD"/>
+            </domain>
+        </type>
+    </types>
+    <attributes>
+        <attr abbrev="find1" class="simple" comm="out" id="attr_return_findCurrency" name="return_findCurrency" type="tpe_Currency"/>
+        <attr abbrev="coun2" class="simple" comm="in" id="attr_param_findCurrency_country" name="param_0_findCurrency_country" type="tpe_Country"/>
+    </attributes>
+</hml>

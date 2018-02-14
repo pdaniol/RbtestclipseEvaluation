@@ -5,23 +5,51 @@ import pl.edu.agh.student.daniol.shop.utils.MathUtils;
 import java.util.HashMap;
 import java.util.Map;
 
+import hadesclipse.hml.template.annotation.HmlParamAttribute;
+import hadesclipse.hml.template.annotation.HmlParamAttributes;
+import hadesclipse.hml.template.annotation.HmlReturnAttribute;
+import hadesclipse.hml.template.annotation.HmlType;
+import hadesclipse.hml.template.annotation.HmlTypeValue;
+import hadesclipse.hml.template.annotation.HmlTypes;
+
+
+@HmlTypes(types = {
+		@HmlType(id = "tpe_SaleStatus", name = "SaleStatus", base = "symbolic", values = { 
+				@HmlTypeValue(is = "GOLD_SALE"),
+				@HmlTypeValue(is = "SILVER_SALE"),
+				@HmlTypeValue(is = "REGULAR_SALE"),
+				@HmlTypeValue(is = "MONDAY_SALE"),
+				@HmlTypeValue(is = "NONE")
+				}),
+		@HmlType(id = "tpe_SellerMood", name = "SellerMood", base = "symbolic", values = { 
+				@HmlTypeValue(is = "GOOD"),
+				@HmlTypeValue(is = "NORMAL")
+				}),
+		@HmlType(id = "tpe_CustomerStatus", name = "CustomerStatus", base = "symbolic", values = {
+				@HmlTypeValue(is = "GOLD"), 
+				@HmlTypeValue(is = "SILVER"),
+				@HmlTypeValue(is = "NONE")
+				})
+		})
+
+
 public class PricingService {
 
     private SaleStatus saleStatus;
 
-    private static Map<SaleStatus, Double> saleDiscountMap = new HashMap<>();
-    private static Map<CustomerStatus, Double> customerDiscountMap = new HashMap<>();
+    private static Map<SaleStatus, Float> saleDiscountMap = new HashMap<>();
+    private static Map<CustomerStatus, Float> customerDiscountMap = new HashMap<>();
 
     static {
-        customerDiscountMap.put(CustomerStatus.GOLD, 0.2);
-        customerDiscountMap.put(CustomerStatus.SILVER, 0.1);
-        customerDiscountMap.put(CustomerStatus.NONE, 0.0);
+        customerDiscountMap.put(CustomerStatus.GOLD, 0.2f);
+        customerDiscountMap.put(CustomerStatus.SILVER, 0.1f);
+        customerDiscountMap.put(CustomerStatus.NONE, 0.0f);
 
-        saleDiscountMap.put(SaleStatus.GOLD_SALE, 0.5);
-        saleDiscountMap.put(SaleStatus.MONDAY_SALE, 0.05);
-        saleDiscountMap.put(SaleStatus.SILVER_SALE, 0.35);
-        saleDiscountMap.put(SaleStatus.REGULAR_SALE, 0.2);
-        saleDiscountMap.put(SaleStatus.NONE,  0.0);
+        saleDiscountMap.put(SaleStatus.GOLD_SALE, 0.5f);
+        saleDiscountMap.put(SaleStatus.MONDAY_SALE, 0.05f);
+        saleDiscountMap.put(SaleStatus.SILVER_SALE, 0.35f);
+        saleDiscountMap.put(SaleStatus.REGULAR_SALE, 0.2f);
+        saleDiscountMap.put(SaleStatus.NONE,  0.0f);
     }
 
 
@@ -33,6 +61,8 @@ public class PricingService {
         this.saleStatus = saleStatus;
     }
 
+  
+	@HmlReturnAttribute(hml_type = "tpe_CustomerStatus")
     public CustomerStatus checkStatus(int loyaltyPoints){
         if(loyaltyPoints > 10000){
             return CustomerStatus.GOLD;
@@ -43,9 +73,12 @@ public class PricingService {
         }
     }
 
-    public double calculateDiscount(int loyaltyPoints, SellerMood sellerMood){
+    @HmlParamAttributes(attributes={@HmlParamAttribute(name="sellerMood",hml_type="tpe_SellerMood")
+
+	})
+    public float calculateDiscount(int loyaltyPoints, SellerMood sellerMood){
         CustomerStatus customerStatus = checkStatus(loyaltyPoints);
-        double discount = MathUtils.pickGreater(saleDiscountMap.get(saleStatus), customerDiscountMap.get(customerStatus));
+        float discount = MathUtils.pickGreater(saleDiscountMap.get(saleStatus), customerDiscountMap.get(customerStatus));
 
         if(SellerMood.GOOD.equals(sellerMood)){
             discount += 0.05;

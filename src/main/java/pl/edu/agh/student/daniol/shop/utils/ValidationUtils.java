@@ -17,7 +17,7 @@ public class ValidationUtils {
         return number <= max && number >= min;
     }
 
-    public static boolean validateDoubleRange(double min, double max, double number){
+    public static boolean validateFloatRange(float min, float max, float number){
         return number <= max && number >= min;
     }
 

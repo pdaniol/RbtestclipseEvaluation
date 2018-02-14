@@ -9,9 +9,35 @@ import java.util.Map;
 import static pl.edu.agh.student.daniol.shop.profile.Country.*;
 import static pl.edu.agh.student.daniol.shop.profile.Currency.*;
 
+import hadesclipse.hml.template.annotation.HmlParamAttribute;
+import hadesclipse.hml.template.annotation.HmlParamAttributes;
+import hadesclipse.hml.template.annotation.HmlReturnAttribute;
+import hadesclipse.hml.template.annotation.HmlType;
+import hadesclipse.hml.template.annotation.HmlTypeValue;
+import hadesclipse.hml.template.annotation.HmlTypes;
+
+@HmlTypes(types = {
+		@HmlType(id = "tpe_Country", name = "Country", base = "symbolic", values = { 
+				@HmlTypeValue(is = "FRANCE"),
+				@HmlTypeValue(is = "GERMANY"),
+				@HmlTypeValue(is = "GREECE"),
+				@HmlTypeValue(is = "NORTH_KOREA"),
+				@HmlTypeValue(is = "POLAND"),
+				@HmlTypeValue(is = "UK"),
+				@HmlTypeValue(is = "USA")
+				}),
+		@HmlType(id = "tpe_Currency", name = "Currency", base = "symbolic", values = {
+				@HmlTypeValue(is = "EUR"), 
+				@HmlTypeValue(is = "GBP"),
+				@HmlTypeValue(is = "KPW"), 
+				@HmlTypeValue(is = "PLN"), 
+				@HmlTypeValue(is = "USD") 
+				})
+		})
+
 public class ExchangeService {
 
-    private static Map<Currency, Map<Currency, Double>>  exchangeMap = new HashMap<>();
+    private static Map<Currency, Map<Currency, Float>>  exchangeMap = new HashMap<>();
     private static Map<Country, Currency>  currencyMap = new HashMap<>();
 
     static {
@@ -25,35 +51,35 @@ public class ExchangeService {
         currencyMap.put(NORTH_KOREA, KPW);
 
 
-        Map<Currency, Double> usdMap = new HashMap<>();
-        usdMap.put(PLN, 3.42);
-        usdMap.put(GBP, 0.72);
-        usdMap.put(EUR, 0.82);
-        usdMap.put(KPW, 899.60);
+        Map<Currency, Float> usdMap = new HashMap<>();
+        usdMap.put(PLN, 3.42f);
+        usdMap.put(GBP, 0.72f);
+        usdMap.put(EUR, 0.82f);
+        usdMap.put(KPW, 899.60f);
 
-        Map<Currency, Double> eurMap = new HashMap<>();
-        eurMap.put(PLN, 4.19);
-        eurMap.put(GBP, 0.89);
-        eurMap.put(USD, 1.23);
-        eurMap.put(KPW, 1102.31);
+        Map<Currency, Float> eurMap = new HashMap<>();
+        eurMap.put(PLN, 4.19f);
+        eurMap.put(GBP, 0.89f);
+        eurMap.put(USD, 1.23f);
+        eurMap.put(KPW, 1102.31f);
 
-        Map<Currency, Double> gbpMap = new HashMap<>();
-        gbpMap.put(PLN, 4.73);
-        gbpMap.put(EUR, 1.13);
-        gbpMap.put(USD, 1.39);
-        gbpMap.put(KPW, 1243.92);
+        Map<Currency, Float> gbpMap = new HashMap<>();
+        gbpMap.put(PLN, 4.73f);
+        gbpMap.put(EUR, 1.13f);
+        gbpMap.put(USD, 1.39f);
+        gbpMap.put(KPW, 1243.92f);
 
-        Map<Currency, Double> plnMap = new HashMap<>();
-        plnMap.put(GBP, 0.22);
-        plnMap.put(EUR, 0.24);
-        plnMap.put(USD, 0.30);
-        plnMap.put(KPW, 262.70);
+        Map<Currency, Float> plnMap = new HashMap<>();
+        plnMap.put(GBP, 0.22f);
+        plnMap.put(EUR, 0.24f);
+        plnMap.put(USD, 0.30f);
+        plnMap.put(KPW, 262.70f);
 
-        Map<Currency, Double> kpwMap = new HashMap<>();
-        kpwMap.put(GBP, 0.0008);
-        kpwMap.put(EUR, 0.0009);
-        kpwMap.put(USD, 0.0011);
-        kpwMap.put(PLN, 0.0038);
+        Map<Currency, Float> kpwMap = new HashMap<>();
+        kpwMap.put(GBP, 0.0008f);
+        kpwMap.put(EUR, 0.0009f);
+        kpwMap.put(USD, 0.0011f);
+        kpwMap.put(PLN, 0.0038f);
 
         exchangeMap.put(USD, usdMap);
         exchangeMap.put(PLN, plnMap);
@@ -62,12 +88,20 @@ public class ExchangeService {
         exchangeMap.put(KPW, kpwMap);
     }
 
-    public static Currency getCurrencyBasedOnCountry(Country country){
+    @HmlParamAttributes(attributes={@HmlParamAttribute(name="country",hml_type="tpe_Country")
+
+	})
+	@HmlReturnAttribute(hml_type = "tpe_Currency")
+    public static Currency findCurrency(Country country){
         return currencyMap.get(country);
     }
 
 
-    public static double calculatePrice(double basePrice, Currency baseCurrency, Currency exchangeCurrency){
+    @HmlParamAttributes(attributes={@HmlParamAttribute(name="baseCurrency",hml_type="tpe_Currency"),
+    		@HmlParamAttribute(name="exchangeCurrency",hml_type="tpe_Currency")
+
+	})
+    public static float calculatePrice(float basePrice, Currency baseCurrency, Currency exchangeCurrency){
         return basePrice * exchangeMap.get(baseCurrency).get(exchangeCurrency);
     }
 

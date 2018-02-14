@@ -1,0 +1,64 @@
+xtype [name: boolean,
+       base: numeric,
+       length: 1,
+       scale: 0,
+       desc: boolean,
+       domain: [0,1]
+      ].
+xtype [name: integer,
+       base: numeric,
+       length: 10,
+       scale: 0,
+       desc: integer,
+       domain: [-2147483648 to 2147483647]
+      ].
+
+
+xtype [name: tpe_default_type,
+       base: symbolic
+      ].
+xtype [name: tpe_boolean_type,
+       base: symbolic,
+       domain: [false/1,true/2],
+       ordered: yes
+      ].
+xtype [name: tpe_String_type,
+       base: symbolic
+      ].
+xattr [name: static_VALID_EMAIL_ADDRESS_REGEX,
+       abbrev: 'VALI1',
+       class: simple,
+       type: tpe_default_type,
+       comm: inter
+      ].
+xattr [name: return_validateEmail,
+       abbrev: vali2,
+       class: simple,
+       type: tpe_boolean_type,
+       comm: out
+      ].
+xattr [name: param_0_validateEmail_email,
+       abbrev: emai3,
+       class: simple,
+       type: tpe_String_type,
+       comm: in
+      ].
+xschm return_table: [param_0_validateEmail_email] ==> [return_validateEmail].
+xrule return_table/1:
+      [param_0_validateEmail_email eq '"test@gmail.com"']
+    ==>
+      [return_validateEmail set true].
+xrule return_table/2:
+      [param_0_validateEmail_email eq '"test@test@gmail.com"']
+    ==>
+      [return_validateEmail set false].
+xrule return_table/3:
+      [param_0_validateEmail_email eq '"test.com"']
+    ==>
+      [return_validateEmail set false].
+xrule return_table/4:
+      [param_0_validateEmail_email eq '"@gmail.com"']
+    ==>
+      [return_validateEmail set false].
+
+ 

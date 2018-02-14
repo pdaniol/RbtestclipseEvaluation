@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE hml SYSTEM "hml.dtd">
+<hml version="2.0">
+    <types>
+        <type base="numeric" id="tpe_float" length="20" name="tpe_float_type" scale="10"/>
+        <type base="symbolic" id="tpe_Country" name="Country">
+            <domain>
+                <value is="FRANCE"/>
+                <value is="GERMANY"/>
+                <value is="GREECE"/>
+                <value is="NORTH_KOREA"/>
+                <value is="POLAND"/>
+                <value is="UK"/>
+                <value is="USA"/>
+            </domain>
+        </type>
+        <type base="symbolic" id="tpe_Currency" name="Currency">
+            <domain>
+                <value is="EUR"/>
+                <value is="GBP"/>
+                <value is="KPW"/>
+                <value is="PLN"/>
+                <value is="USD"/>
+            </domain>
+        </type>
+    </types>
+    <attributes>
+        <attr abbrev="calc1" class="simple" comm="out" id="attr_return_calculatePrice" name="return_calculatePrice" type="tpe_float"/>
+        <attr abbrev="base2" class="simple" comm="in" id="attr_param_calculatePrice_basePrice" name="param_0_calculatePrice_basePrice" type="tpe_float"/>
+        <attr abbrev="base3" class="simple" comm="in" id="attr_param_calculatePrice_baseCurrency" name="param_1_calculatePrice_baseCurrency" type="tpe_Currency"/>
+        <attr abbrev="exch4" class="simple" comm="in" id="attr_param_calculatePrice_exchangeCurrency" name="param_2_calculatePrice_exchangeCurrency" type="tpe_Currency"/>
+    </attributes>
+</hml>

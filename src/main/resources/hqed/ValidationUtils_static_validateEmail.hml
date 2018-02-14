@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE hml SYSTEM "hml.dtd">
+<hml version="2.0">
+    <types>
+        <type base="symbolic" id="tpe_default" name="tpe_default_type"/>
+        <type base="symbolic" id="tpe_boolean" name="tpe_boolean_type">
+            <domain>
+                <value is="false"/>
+                <value is="true"/>
+            </domain>
+        </type>
+        <type base="symbolic" id="tpe_String" name="tpe_String_type"/>
+    </types>
+    <attributes>
+        <attr abbrev="VALI1" class="simple" comm="io" id="attr_VALID_EMAIL_ADDRESS_REGEX" name="static_VALID_EMAIL_ADDRESS_REGEX" type="tpe_default"/>
+        <attr abbrev="vali2" class="simple" comm="out" id="attr_return_validateEmail" name="return_validateEmail" type="tpe_boolean"/>
+        <attr abbrev="emai3" class="simple" comm="in" id="attr_param_validateEmail_email" name="param_0_validateEmail_email" type="tpe_String"/>
+    </attributes>
+</hml>

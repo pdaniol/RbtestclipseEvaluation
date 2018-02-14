@@ -1,17 +1,15 @@
 package pl.edu.agh.student.daniol.shop.offer.car;
 
-import pl.edu.agh.student.daniol.shop.profile.Currency;
-
 public class Car {
-    private double baseDailyPrice;
-    private double dailyPrice;
+    private float baseDailyPrice;
+    private float dailyPrice;
     private boolean airConditioner;
     private boolean fullInsurance;
 
     public Car() {
     }
 
-    public Car(double baseDailyPrice, boolean airConditioner, boolean fullInsurance) {
+    public Car(float baseDailyPrice, boolean airConditioner, boolean fullInsurance) {
         this.airConditioner = airConditioner;
         this.fullInsurance = fullInsurance;
         this.baseDailyPrice = baseDailyPrice;
@@ -19,17 +17,17 @@ public class Car {
         this.dailyPrice = calculateDailyPrice();
     }
 
-    public double calculateDailyPrice() {
+    public float calculateDailyPrice() {
         if(fullInsurance && airConditioner){
-            return this.baseDailyPrice * 1.40;
+            return this.baseDailyPrice * 1.40f;
         } else if(fullInsurance || airConditioner){
-            return this.baseDailyPrice * 1.20;
+            return this.baseDailyPrice * 1.20f;
         } else {
             return this.baseDailyPrice;
         }
     }
 
-    public double getDailyPrice() {
+    public float getDailyPrice() {
         return dailyPrice;
     }
 
@@ -37,7 +35,7 @@ public class Car {
         return baseDailyPrice;
     }
 
-    public void setBaseDailyPrice(double baseDailyPrice) {
+    public void setBaseDailyPrice(float baseDailyPrice) {
         this.baseDailyPrice = baseDailyPrice;
     }
 

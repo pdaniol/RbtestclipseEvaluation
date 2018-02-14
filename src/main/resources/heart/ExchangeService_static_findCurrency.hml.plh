@@ -1,0 +1,61 @@
+xtype [name: boolean,
+       base: numeric,
+       length: 1,
+       scale: 0,
+       desc: boolean,
+       domain: [0,1]
+      ].
+xtype [name: integer,
+       base: numeric,
+       length: 10,
+       scale: 0,
+       desc: integer,
+       domain: [-2147483648 to 2147483647]
+      ].
+
+
+xtype [name: 'Country',
+       base: symbolic,
+       domain: ['FRANCE'/1,'GERMANY'/2,'GREECE'/3,'NORTH_KOREA'/4,'POLAND'/5,'UK'/6,'USA'/7],
+       ordered: yes
+      ].
+xtype [name: 'Currency',
+       base: symbolic,
+       domain: ['EUR'/1,'GBP'/2,'KPW'/3,'PLN'/4,'USD'/5],
+       ordered: yes
+      ].
+xattr [name: return_findCurrency,
+       abbrev: find1,
+       class: simple,
+       type: 'Currency',
+       comm: out
+      ].
+xattr [name: param_0_findCurrency_country,
+       abbrev: coun2,
+       class: simple,
+       type: 'Country',
+       comm: in
+      ].
+xschm return_table: [param_0_findCurrency_country] ==> [return_findCurrency].
+xrule return_table/1:
+      [param_0_findCurrency_country in ['FRANCE','GERMANY','GREECE']]
+    ==>
+      [return_findCurrency set 'EUR'].
+xrule return_table/2:
+      [param_0_findCurrency_country eq 'NORTH_KOREA']
+    ==>
+      [return_findCurrency set 'KPW'].
+xrule return_table/3:
+      [param_0_findCurrency_country eq 'POLAND']
+    ==>
+      [return_findCurrency set 'PLN'].
+xrule return_table/4:
+      [param_0_findCurrency_country eq 'UK']
+    ==>
+      [return_findCurrency set 'GBP'].
+xrule return_table/5:
+      [param_0_findCurrency_country eq 'USA']
+    ==>
+      [return_findCurrency set 'USD'].
+
+ 
